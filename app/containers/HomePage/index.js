@@ -1,18 +1,29 @@
-/*
- * HomePage
- *
- * This is the first thing users see of our App, at the '/' route
- *
- */
-
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import { makeStyles } from '@material-ui/core';
 
-export default function HomePage() {
+// Components
+import InitialText from 'components/InitialText/Loadable';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.palette.common.black,
+    fontFamily: '"Quattrocento Sans", sans-serif',
+    overflow: 'hidden',
+  },
+}));
+
+export default function HomePage(props) {
+  const classes = useStyles(props);
+
   return (
-    <h1>
-      <FormattedMessage {...messages.header} />
-    </h1>
+    <div className={classes.root}>
+      <InitialText />
+    </div>
   );
 }

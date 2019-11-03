@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 const selectRouter = state => state.router;
+const appRoute = state => state.app;
 
 const makeSelectLocation = () =>
   createSelector(
@@ -8,4 +9,10 @@ const makeSelectLocation = () =>
     routerState => routerState.location,
   );
 
-export { makeSelectLocation };
+const makeSelectBackgroundPosition = () =>
+  createSelector(
+    appRoute,
+    appState => appState.get('backgroundPosition'),
+  );
+
+export { makeSelectLocation, makeSelectBackgroundPosition };

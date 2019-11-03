@@ -8,3 +8,5 @@
  * Follow this format:
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
+
+export const SET_BACKGROUND_POSITION = 'janet/App/SET_BACKGROUND_POSITION';

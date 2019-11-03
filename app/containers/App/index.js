@@ -11,15 +11,21 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
+import Profile from 'containers/Profile/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import GlobalStyle from '../../global-styles';
 
 export default function App() {
   return (
-    <div>
+    <div style={{ overflow: 'hidden' }}>
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route exact path="/Profile">
+          <Profile />
+        </Route>
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
