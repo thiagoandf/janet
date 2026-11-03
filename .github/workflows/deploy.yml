@@ -1,0 +1,34 @@
+name: Deploy
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Skip if Firebase service account is not configured
+        id: guard
+        run: |
+          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT_LANDING_17CE5 }}" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+      - run: npm ci
+      - run: npm run build
+        if: steps.guard.outputs.configured == 'true'
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        if: steps.guard.outputs.configured == 'true'
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_LANDING_17CE5 }}
+          channelId: live
+          projectId: landing-17ce5
