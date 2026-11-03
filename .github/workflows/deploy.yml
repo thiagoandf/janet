@@ -16,8 +16,10 @@ jobs:
           cache: npm
       - name: Skip if Firebase service account is not configured
         id: guard
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_LANDING_17CE5 }}
         run: |
-          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT_LANDING_17CE5 }}" ]; then
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT" ]; then
             echo "configured=false" >> "$GITHUB_OUTPUT"
           else
             echo "configured=true" >> "$GITHUB_OUTPUT"
